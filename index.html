@@ -99,21 +99,23 @@
         const Keyboard = window.SimpleKeyboard.default;
 
         let userGuess = document.querySelector('.input');
+        let resetInput = false;
 
         const myKeyboard = new Keyboard({
             onChange: input => onChange(input),
             onKeyPress: button => onKeyPress(button),
             layout: {
                 'default': [
-                    'q w e r t y u i o p {bksp}',
+                    'q w e r t y u i o p',
                     'a s d f g h j k l',
-                    'z x c v b n m',
-                    '{enter}'
+                    'z x c v b n m {bksp}',
+                    '{space} {enter}'
                 ]
             },
             display: {
                 '{bksp}': '<',
                 '{enter}': 'Enter',
+                '{space}': ' ',
             },
             theme: "hg-theme-default myTheme1"
         });
@@ -144,6 +146,7 @@
             console.log(score)
 
             userGuess.value = ''
+            myKeyboard.clearInput();
             displayNext();
         }
 
