@@ -60,7 +60,8 @@
 
 <body class="p-4 sm:p-1" style="background-image: url(images/Higher\ wide\ size.jpg); background-size: cover;">
 
-    <div id="main" class="animate__animated animate__bounce sm:w-1/4 h-1/4 mt-8 place-self-center">
+    <div id="main" class="animate__animated animate__bounce sm:w-1/4 h-1/4 mt-1 place-self-center">
+        <h1 id="iteration" class="text-white text-center text-2xl"></h1>
         <div id="imageElement" class="grid grid-cols-2 gap-1 sm:gap-0 grid-rows-2 mb-4">
 
         </div>
@@ -87,6 +88,7 @@
 
         let userGuess = document.querySelector('.input');
         let resetInput = false;
+        let iteration = document.getElementById('iteration');
 
         const myKeyboard = new Keyboard({
             onChange: input => onChange(input),
@@ -262,6 +264,7 @@
             });
 
             currentIteration++;
+            iteration.innerText = currentIteration
         }
 
         displayNext();
