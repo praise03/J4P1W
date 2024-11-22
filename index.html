@@ -60,8 +60,9 @@
 
 <body class="p-4 sm:p-1" style="background-image: url(images/Higher\ wide\ size.jpg); background-size: cover;">
 
-    <div id="main" class="animate__animated animate__bounce sm:w-1/4 h-1/4 mt-1 place-self-center">
+    <div id="main" class="animate__animated animate__bounce sm:w-1/4 h-1/4 place-self-center">
         <h1 id="iteration" class="text-white text-center text-2xl"></h1>
+        <div id="progress-bar" class="p-2"></div>
         <div id="imageElement" class="grid grid-cols-2 gap-1 sm:gap-0 grid-rows-2 mb-4">
 
         </div>
@@ -88,7 +89,20 @@
 
         let userGuess = document.querySelector('.input');
         let resetInput = false;
-        let iteration = document.getElementById('iteration');
+        let currentIteration = 0;
+        // let iteration = document.getElementById('iteration');
+
+        const lineBar = new ProgressBar.Line("#progress-bar", {
+            from: {color: "#76d484"},
+            to: {color: "#00B6E7"},
+            strokeWidth: 4,
+            trailWidth: 1,
+            trailColor: "#fff",
+            easing: "easeInOut",
+            step: function(state, bar, attachment) {
+                bar.path.setAttribute('stroke', state.color);
+            }
+        })
 
         const myKeyboard = new Keyboard({
             onChange: input => onChange(input),
@@ -241,7 +255,6 @@
                                 'yastin bieber', 'jup rally', 'jupuary', 'ape pro', 'DefiJupJam', 'jup lock'];
 
         const imageElement = document.getElementById('imageElement');
-        let currentIteration = 0;
 
         function displayNext() {
             if (currentIteration == imagesArray.length) {
@@ -264,10 +277,37 @@
             });
 
             currentIteration++;
-            iteration.innerText = currentIteration
+            console.log(currentIteration)
+
+            lineBar.animate((currentIteration)/13, {
+                duration: 50
+            });
+            lineBar.text = currentIteration
         }
 
         displayNext();
+
+        // const circleBar = new ProgressBar.SemiCircle("#progress-bar", {
+        //     from: {color: "#76d484"},
+        //     to: {color: "#00B6E7"},
+        //     strokeWidth: 4,
+        //     trailWidth: 1,
+        //     trailColor: "#666",
+        //     easing: "easeInOut",
+        //     step: (state, shape) => {
+        //     shape.path.setAttribute("stroke", state.color);
+        //     shape.setText(currentQuestionIndex+1);
+        //     shape.text.style.color = state.color;
+        //     shape.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+        //     shape.text.style.fontSize = '2rem';
+        //     },
+        //     text: {
+        //         value: '',
+        //         alignToBottom: true
+        //     },
+        // });
+
+       
     </script>
 </body>
 
