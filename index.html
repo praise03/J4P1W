@@ -83,6 +83,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuzzyset.js/0.0.9/fuzzyset.min.js" integrity="sha512-DYBXLAaANFT9+XRP+PjhqgPo/XMiKSP1GwDBxtUlf1YdXLexcBU2jqa8LZEYU1kbPxBsd0q9s4TS3wLfFOi7kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const Keyboard = window.SimpleKeyboard.default;
 
@@ -142,9 +143,19 @@
             const guess = userGuess.value.toLowerCase();
             const correctAnswer = correctAnswers[currentIteration - 1].toLowerCase();
 
-            if (guess == correctAnswer) {
-                score += 1;
+            // if (guess == correctAnswer) {
+            //     score += 1;
+            // }
+            const a = FuzzySet([correctAnswer]);
+            const match = a.get(guess);
+            // [[0.8461538461538461, 'Michael Axiak']]
+            console.log(match)
+            if (match != null) {
+                if (match[0][0] > 0.6) {
+                    score += 1
+                }
             }
+            
             console.log(score)
 
             userGuess.value = ''
